@@ -26,4 +26,4 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - run: echo "This is a deploy step"
-        if: success()
+        if: success() && !github.event.inputs.paths == ['*.yml']
