@@ -21,9 +21,18 @@ jobs:
     steps:
       - run: echo "This is an integration step"
       - run: exit 1
+  artifact:  # New job for creating artifact
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Create artifact file
+        run: echo "hello" > hello.txt  # Create a file with "hello" content
+      - uses: actions/upload-artifact@v4  # Upload the file as an artifact
+        with:
+          name: hello-artifact  # Name for the artifact
+          path: hello.txt       # Path to the file to upload
 
   prod:
     runs-on: ubuntu-20.04
     steps:
       - run: echo "This is a deploy step"
-        if: success() && !github.event.inputs.paths == ['*.yml']
+        if: success()
